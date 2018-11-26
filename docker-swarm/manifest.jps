@@ -161,6 +161,6 @@ actions:
           startPage: https://${env.domain}/
 
   addExtIp:
-    script: ${baseUrl}/addons/scripts/attach-external-ip.js?_r=${fn.random}
+    script: ${baseUrl}/scripts/attach-external-ip.js?_r=${fn.random}
 
 startPage: ${globals.startPage}
