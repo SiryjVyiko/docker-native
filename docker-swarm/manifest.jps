@@ -78,6 +78,7 @@ nodes:
     image: jelastic/docker-ce
     nodeGroup: cp
     displayName: Manager
+    extip: true
     env:
       JELASTIC_EXPOSE: false
   - count: ${settings.worker}
