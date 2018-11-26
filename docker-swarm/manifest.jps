@@ -97,6 +97,7 @@ onInstall:
   - if ('${settings.stack}' == 'deploy'): deploy
   - portainer
   - get-tokens
+  - addExtIp
   
 actions:
   init-swarm:
@@ -158,5 +159,8 @@ actions:
             mode: swarm
       - setGlobals:
           startPage: https://${env.domain}/
+
+  addExtIp:
+    script: ${baseUrl}/addons/scripts/attach-external-ip.js?_r=${fn.random}
 
 startPage: ${globals.startPage}
