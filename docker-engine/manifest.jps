@@ -75,7 +75,6 @@ nodes:
   image: jelastic/docker-ce
   nodeGroup: ${settings.role}
   displayName: Engine Node
-  extip: true
   env:
     JELASTIC_EXPOSE: false
     
