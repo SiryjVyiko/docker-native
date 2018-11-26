@@ -91,13 +91,13 @@ nodes:
 skipNodeEmails: true
  
 onInstall:
+  - addExtIp
   - init-swarm
   - scaling-events
   - if (${settings.autoscaling}): scaling-triggers
   - if ('${settings.stack}' == 'deploy'): deploy
   - portainer
   - get-tokens
-  - addExtIp
   
 actions:
   init-swarm:
