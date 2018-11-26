@@ -79,6 +79,7 @@ nodes:
     JELASTIC_EXPOSE: false
     
 onInstall:
+  - addExtIp
   - deploy
   - connect-to-swarm
   - portainer
@@ -125,6 +126,9 @@ actions:
         jps: ${baseUrl}/portainer.jps
         settings:
           mode: engine
+
+  addExtIp:
+    script: ${baseUrl}/scripts/attach-external-ip.js?_r=${fn.random}
           
 success:
   text: /text/engine-success.md
