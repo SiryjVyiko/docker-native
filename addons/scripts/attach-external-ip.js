@@ -1,22 +1,18 @@
-import com.hivext.api.core.utils.Transport;
-import com.hivext.api.development.Scripting;
-import com.hivext.api.utils.Random;
+var ipQuotas = jelastic.billing.account.GetQuotas(appid, session, [
+   'environment.externalip.enabled',
+   'environment.externalip.maxcount',
+   'environment.externalip.maxcount.per.node'
+].join(";"));
 
-var extIpEnabled = jelastic.billing.account.GetQuotas(appid, session, 'environment.externalip.enabled');
+if (ipQuotas.result != 0) return resp;
 
-if (extIpEnabled.result != 0) return resp;
+if (ipQuotas.array[0].value != 0 && ipQuotas.array[1].value > 0 && ipQuotas.array[2].value > 0) {
+    return jelastic.environment.control.AttachExtIp({
+        envName: "${env.envName}",
+        nodeId: ${nodes.cp.master.id}
+    })
+};
 
-var extIpMaximum = jelastic.billing.account.GetQuotas(appid, session, 'environment.externalip.maxcount');
-
-if (extIpMaximum.result != 0) return resp;
-
-var extIpMaximumPerNode = jelastic.billing.account.GetQuotas(appid, session, 'environment.externalip.maxcount.per.node');
-
-if (extIpMaximumPerNode.result != 0) return resp;
-
-if (extIpEnabled.array[0].value != 0 && extIpMaximum.array[0].value > 0 && extIpMaximumPerNode.array[0].value > 0) return jelastic.environment.control.AttachExtIp({
-    envName: "${env.envName}",
-    nodeId: ${nodes.cp.master.id}
-});
-
-return { result: 0 };
+return {
+    result: 0
+};
