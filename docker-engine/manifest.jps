@@ -128,7 +128,7 @@ actions:
           mode: engine
 
   addExtIp:
-    script: ${baseUrl}/scripts/attach-external-ip.js?_r=${fn.random}
+    script: ${baseUrl}/attach-external-ip.js?_r=${fn.random}
           
 success:
   text: /text/engine-success.md
