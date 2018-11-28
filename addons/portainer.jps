@@ -62,7 +62,7 @@
     {
       "if ('${settings.mode}' == 'swarm')": [
         {
-          "cmd[@clnode.id]": "mkdir -p /opt/portainer"
+          "cmd[cp]": "mkdir -p /opt/portainer"
         }
       ]
     }
