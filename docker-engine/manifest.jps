@@ -138,5 +138,5 @@ actions:
 startPage: ${globals.startPage}
         
 success:
-  text: /text/engine-success.md
-  email: /text/engine-success.md
+  text: /text/engine-success-no-ssh-keys.md
+  email: /text/engine-success-no-ssh-keys.md
