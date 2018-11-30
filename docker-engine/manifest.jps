@@ -16,6 +16,9 @@ logo: ../images/docker-engine-logo-94x70.png
 name: Docker Engine CE
 targetRegions:
   type: vz7
+
+globals:                                                                                                                                                                                                                         
+  startPage: http://${env.domain}/   
   
 settings:
   fields:
@@ -131,7 +134,9 @@ actions:
 
   addExtIp:
     script: ${baseUrl}/scripts/attach-external-ip.js?_r=${fn.random}
-          
+  
+startPage: ${globals.startPage}
+        
 success:
   text: /text/engine-success.md
   email: /text/engine-success.md
