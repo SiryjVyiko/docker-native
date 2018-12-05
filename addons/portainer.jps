@@ -22,12 +22,11 @@
   },
   "onInstall": [
     {
-      "cmd[cp]": [
-        "mkdir ~/.ssh/certs",
-        "openssl genrsa -out ~/.ssh/certs/portainer.key 2048",
-        "openssl ecparam -genkey -name secp384r1 -out ~/.ssh/certs/portainer.key",
-        "openssl req -new -x509 -sha256 -key ~/.ssh/certs/portainer.key -out ~/.ssh/certs/portainer.crt -days 3650 -subj \"/CN=${env.domain}\""
-      ]
+      "forEach(nodes.cp)": {
+        "prepareManager": {
+          "id": "${@i.id}"
+        }
+      }
     },
     {
       "if ('${settings.mode}' == 'engine')": {
@@ -60,13 +59,26 @@
   ],
   "onAfterScaleOut[cp]": [
     {
-      "if ('${settings.mode}' == 'swarm')": [
-        {
-          "cmd[cp]": "mkdir -p /opt/portainer"
+      "forEach(event.response.nodes)": {
+        "prepareManager": {
+          "id": "${@i.id}"
         }
-      ]
+      }
     }
   ],
+  "actions": {
+    "prepareManager": {
+      "cmd[${this.id}]": {
+        "user": "root",
+        "commands": [
+          "mkdir -p /opt/portainer /root/.ssh/certs",
+          "openssl genrsa -out ~/.ssh/certs/portainer.key 2048",
+          "openssl ecparam -genkey -name secp384r1 -out ~/.ssh/certs/portainer.key",
+          "openssl req -new -x509 -sha256 -key ~/.ssh/certs/portainer.key -out ~/.ssh/certs/portainer.crt -days 3650 -subj \"/CN=${env.domain}\""
+        ]
+      }
+    }
+  },
   "success": "Portainer UI: [https://${env.domain}:4848](https://${env.domain}:4848)\n\nUser: ${globals.user}\n\nPassword: ${globals.password}",
   "email": "Portainer UI: [https://${env.domain}:4848](https://${env.domain}:4848)\n\nUser: ${globals.user}\n\nPassword: ${globals.password}"
 }
