@@ -13,3 +13,5 @@ docker swarm join --token \
 ${globals.worker_token} \
 ${nodes.cp.master.address}:2377
 ```
+
+**Note:** If your Docker Swarm manager nodes are not supplemented with public IPs, you should create the appropriate [endpoint](https://docs.jelastic.com/endpoints) and provide it instead of the last line in the commands above.
