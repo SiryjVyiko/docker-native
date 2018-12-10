@@ -14,4 +14,4 @@ ${globals.worker_token} \
 ${nodes.cp.master.address}:2377
 ```
 
-**Note:** If your Docker Swarm manager nodes are not supplemented with public IPs, you should create the appropriate [endpoint](https://docs.jelastic.com/endpoints) and provide it instead of the last line in the commands above.
+**Note:** The above-specified strings are suitable to connect nodes hosted inside the same platform. To include external swarm members, replace the last line with the master node [public IP](https://docs.jelastic.com/public-ip) (or [endpoint](https://docs.jelastic.com/endpoints)).
